@@ -1,0 +1,26 @@
+---
+name: "Code Quality"
+on:
+  push:
+  pull_request:
+jobs:
+  superlinter:
+    name: Super-Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608  #  v4.1.0
+        with:
+          fetch-depth: 0
+      - name: Run Super-Linter
+        uses: super-linter/super-linter@v5.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILTER_REGEX_EXCLUDE: "build.tmpl"
+          IGNORE_GITIGNORED_FILES: true
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: "main"
+          DISABLE_ERRORS: false
+          VALIDATE_ANSIBLE: true
+          VALIDATE_TERRAGRUNT: false
+          VALIDATE_MARKDOWN: true

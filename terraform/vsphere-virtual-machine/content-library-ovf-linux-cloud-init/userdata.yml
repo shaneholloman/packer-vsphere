@@ -1,0 +1,13 @@
+---
+# cloud-config
+users:
+  - default
+  - name: terraform
+    primary_group: users
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    lock_passwd: false
+    passwd: $6$FZ18Nd9R/80RLZvw$MoTFEL01lVM9L36g7fyZ2JoJ6eDfAtoRQK0lReW..Knq/KEHKPYnr4mWTawhjqCXUpzhZH/hLYV10xayfouP70
+    ssh_authorized_keys:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDivEgzweiKg6/9v30mex6Az7WW+/ffyrZapA8lg1N7P terraform@mgmt.nz"

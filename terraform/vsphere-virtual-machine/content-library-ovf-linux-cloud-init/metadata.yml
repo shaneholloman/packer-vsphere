@@ -1,0 +1,16 @@
+---
+instance-id: debian-cloud-init-test-from-ovf
+local-hostname: debian-cloud-init-test-from-ovf
+network:
+  version: 2
+  ethernets:
+    ens192:
+      dhcp4: false
+      addresses:
+        - 10.1.25.201/24
+      gateway4: 10.1.25.1
+      nameservers:
+        addresses:
+          - 1.1.1.1
+          - 10.1.1.10
+          - 10.2.1.10
