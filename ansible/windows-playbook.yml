@@ -1,5 +1,6 @@
 ---
-- debugger: never
+- name: Windows Playbook
+  debugger: never
   gather_facts: true
   hosts: all
   roles:
