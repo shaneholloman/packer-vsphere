@@ -1,2 +1,2 @@
 ---
-enable_cloudinit: false
+enable_cloudinit: true

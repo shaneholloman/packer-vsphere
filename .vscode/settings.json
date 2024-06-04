@@ -56,5 +56,9 @@
     "editor.formatOnType": true,
     "editor.trimAutoWhitespace": true,
     "editor.wordWrap": "off"
-  }
+  },
+"makefile.configureOnOpen": false,
+"[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+}
 }

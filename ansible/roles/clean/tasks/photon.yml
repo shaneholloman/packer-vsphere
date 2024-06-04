@@ -3,7 +3,7 @@
 
 # Tasks to clean the audit logs.
 - name: "Cleaning the audit logs."
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: absent
   loop:
@@ -13,13 +13,13 @@
 
 # Tasks to clean the persistent udev rules.
 - name: "Cleaning persistent udev rules."
-  file:
+  ansible.builtin.file:
     path: /etc/udev/rules.d/70-persistent-net.rules
     state: absent
 
 # Tasks to find the /tmp directories.
 - name: "Finding the /tmp directories."
-  find:
+  ansible.builtin.find:
     paths:
       - /tmp
       - /var/tmp
@@ -28,7 +28,7 @@
 
 # Tasks to clean the /tmp directories.
 - name: "Cleaning the /tmp directories."
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   loop: "{{ find_tmp_directories.files }}"
@@ -37,14 +37,14 @@
 
 # Tasks to find the SSH host keys.
 - name: "Finding the SSH host keys."
-  find:
+  ansible.builtin.find:
     paths: /etc/ssh
     patterns: 'ssh_host_*'
   register: find_ssh_host_keys
 
 # Tasks to clean the SSH host keys.
 - name: "Cleaning the SSH host keys."
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   loop: "{{ find_ssh_host_keys.files }}"
@@ -59,11 +59,11 @@
         path: /etc/machine-id
         size: 0
     - name: "Removing /var/lib/dbus/machine-id."
-      file:
+      ansible.builtin.file:
         path: /var/lib/dbus/machine-id
         state: absent
     - name: "Creating a symbolic link to /etc/machine-id."
-      file:
+      ansible.builtin.file:
         src: /etc/machine-id
         dest: /var/lib/dbus/machine-id
         state: link
@@ -71,7 +71,7 @@
 # Tasks to clean the shell history.
 - name: "Cleaning the shell history."
   block:
-  - name: "Cleaning the shell history."
-    file:
-      path: "{{ ansible_env.HOME }}/.bash_history"
-      state: absent
+    - name: "Cleaning the shell history."
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.bash_history"
+        state: absent

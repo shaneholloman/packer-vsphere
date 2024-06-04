@@ -4,23 +4,25 @@
 # Tasks for configuring SSH for public key authentication.
 - name: "Configuring SSH for Public Key Authentication."
   block:
-    - lineinfile:
+    - name: "Disable root login"
+      ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^PermitRootLogin'
         line: 'PermitRootLogin no'
-    - lineinfile:
+    - name: "Enable public key authentication"
+      ansible.builtin.lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^PubkeyAuthentication'
         line: 'PubkeyAuthentication yes'
 
 # Tasks for setting the hostname.
 - name: "Setting the hostname."
-  hostname:
+  ansible.builtin.hostname:
     name: "localhost"
 
 # Tasks for restarting IPv6.
 - name: "Disabling IPv6."
-  sysctl:
+  ansible.posix.sysctl:
     name: net.ipv6.conf.all.disable_ipv6
     value: '1'
     state: present
@@ -28,15 +30,18 @@
 
 # Tasks for configuring cloud-init.
 - name: "Configuring cloud-init."
+  when: enable_cloudinit == 'true'
   block:
     - name: "Message: Configuring cloud-init"
-      debug:
+      ansible.builtin.debug:
         msg: "Configuring cloud-init"
-    - blockinfile:
+    - name: "Ensure disable_vmware_customization is set to false in cloud.cfg"
+      ansible.builtin.blockinfile:
         path: /etc/cloud/cloud.cfg
         block: |
           disable_vmware_customization: false
-    - copy:
-        content: "datasource_list: [ VMware, OVF, None ]"
+    - name: "Set datasource_list in 90_dpkg.cfg"
+      ansible.builtin.copy:
+        content: 'datasource_list: [ VMware, OVF, None ]'
         dest: /etc/cloud/cloud.cfg.d/90_dpkg.cfg
-  when: enable_cloudinit == 'true'
+        mode: '0644'

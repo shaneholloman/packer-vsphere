@@ -58,9 +58,20 @@ This is a rough outline of the contributor workflow:
 Example:
 
 ```shell
+# Add the original repository as a remote named "upstream"
+# This allows you to keep your fork in sync with the original repository
 git remote add upstream https://github.com/vmware-samples/packer-examples-for-vsphere.git
+
+# Create a new branch named "feat/foo" based on the "develop" branch
+# Use a descriptive branch name that reflects the feature or change you're working on
 git checkout -b feat/foo develop
+
+# Commit all staged changes with a signed commit (-s)
+# This step assumes you have already staged your changes using "git add"
 git commit -s -a
+
+# Push the "feat/foo" branch to your fork on GitHub
+# This makes your changes available for others to review and merge
 git push origin feat/foo
 ```
 
@@ -70,9 +81,18 @@ When your branch gets out of sync with the `vmware-samples/develop` branch, use 
 update:
 
 ```shell
+# Switch to the "feat/foo" branch
 git checkout feat/foo
+
+# Fetch all remote branches and their respective commits
 git fetch -a
+
+# Rebase the current branch on top of the "upstream/develop" branch
+# This applies your changes on top of the latest changes in the original repository
 git pull --rebase upstream develop
+
+# Force push the updated branch to your fork on GitHub
+# The --force-with-lease flag ensures you don't overwrite someone else's work
 git push --force-with-lease origin feat/foo
 ```
 
@@ -85,17 +105,33 @@ If your pull request contains a single commit or your changes are related to the
 you can simply amend the commit.
 
 ```shell
+# Stage all changes
 git add .
+
+# Amend the previous commit with the staged changes
+# This allows you to modify the most recent commit
 git commit --amend
+
+# Force push the amended commit to your fork on GitHub
+# The --force-with-lease flag ensures you don't overwrite someone else's work
 git push --force-with-lease origin feat/foo
 ```
 
 If you need to squash changes into an earlier commit, you can use:
 
 ```shell
+# Stage all changes
 git add .
+
+# Create a fixup commit that will be squashed into the specified commit during rebase
 git commit --fixup <commit>
+
+# Perform an interactive rebase starting from the "develop" branch
+# The --autosquash flag automatically arranges fixup commits for squashing
 git rebase -i --autosquash develop
+
+# Force push the updated branch to your fork on GitHub
+# The --force-with-lease flag ensures you don't overwrite someone else's work
 git push --force-with-lease origin feat/foo
 ```
 

@@ -3,17 +3,17 @@
 
 # Tasks for creating the local group for Ansible.
 - name: "Creating the local group for Ansible."
-  group:
+  ansible.builtin.group:
     name: "{{ ansible_username }}"
 
 # Tasks for creating the sudo group.
 - name: "Creating the sudo group."
-  group:
+  ansible.builtin.group:
     name: sudo
 
 # Tasks for creating the local user for Ansible.
 - name: "Creating the local user for Ansible."
-  user:
+  ansible.builtin.user:
     name: "{{ ansible_username }}"
     group: "{{ ansible_username }}"
     groups: sudo
@@ -41,4 +41,3 @@
   loop:
     - "{{ build_username }}"
     - "{{ ansible_username }}"
-
