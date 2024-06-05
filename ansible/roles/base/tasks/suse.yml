@@ -2,20 +2,20 @@
 # SUSE Linux Enterprise Server specific tasks.
 
 # Tasks for updating the operating system and installing additional packages.
-- name: "Updating operating system and installing additional packages."
+- name: Updating operating system and installing additional packages.
   become: true
   block:
-    - name: "Getting guest operating system information."
+    - name: Getting guest operating system information.
       ansible.builtin.debug:
         msg: "OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
 
-    - name: "Updating the operating system."
+    - name: Updating the operating system.
       community.general.zypper:
         name: "*"
         state: latest
         update_cache: true
 
-    - name: "Installing additional packages."
+    - name: Installing additional packages.
       community.general.zypper:
         name: "{{ additional_packages[ansible_os_family] }}"
         state: latest
@@ -23,7 +23,7 @@
     # In an effort to pull versioning outta here and make the function idempotent
     # see vars/main.yml for these parameters
     # TODO: Not tested as no pro account available, please test and pull the comment ...
-    - name: "Set full module path"
+    - name: Set full module path
       ansible.builtin.set_fact:
         full_module_path: "{{ module_name }}/{{ module_version }}/{{ architecture }}"
 
@@ -32,18 +32,18 @@
       register: suseconnect_status
       changed_when: false
 
-    - name: "Adding location of python3-jsonpatch for {{ full_module_path }}."
+    - name: Adding location of python3-jsonpatch for {{ full_module_path }}.
       ansible.builtin.command: SUSEConnect -p {{ full_module_path }}
       when: full_module_path not in suseconnect_status.stdout
       register: suseconnect_register
       changed_when: "'Registering' in suseconnect_register.stdout"
 
-    - name: "Installing python3-jsonpatch"
+    - name: Installing python3-jsonpatch
       community.general.zypper:
         name: python3-jsonpatch
         state: present
 
-    - name: "Installing cloud-init."
+    - name: Installing cloud-init.
       community.general.zypper:
         name: cloud-init
         state: present

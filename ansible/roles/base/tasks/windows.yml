@@ -2,7 +2,7 @@
 # Microsoft Windows specific tasks.
 
 # Tasks for updating the operating system and installing additional packages.
-- name: "Getting guest operating system information."
+- name: Getting guest operating system information.
   ansible.builtin.debug:
     msg: "OS: {{ ansible_os_name }}"
 
@@ -11,13 +11,13 @@
   block:
     - name: Install Chocolatey CLI v1.4.0
       chocolatey.chocolatey.win_chocolatey:
-        name: 'chocolatey'
+        name: chocolatey
         state: present
-        version: '1.4.0'
+        version: 1.4.0
 
     - name: Install Microsoft .NET Framework 4.8
       chocolatey.chocolatey.win_chocolatey:
-        name: 'netfx-4.8'
+        name: netfx-4.8
         state: present
 
     - name: Reboot the host to complete .NET Framework 4.8 install
@@ -25,10 +25,10 @@
 
     - name: Install Chocolatey CLI v2.0.0+ when .NET Framework 4.8 dependency is met
       chocolatey.chocolatey.win_chocolatey:
-        name: 'chocolatey'
+        name: chocolatey
         state: latest
 
-    - name: "Installing additional packages using Chocolatey."
+    - name: Installing additional packages using Chocolatey.
       chocolatey.chocolatey.win_chocolatey:
         name:
           - googlechrome
@@ -38,7 +38,7 @@
         state: latest
         ignore_checksums: true
 
-- name: "Updating the operating system."
+- name: Updating the operating system.
   ansible.windows.win_updates:
     category_names:
       - SecurityUpdates

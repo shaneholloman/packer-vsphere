@@ -34,7 +34,6 @@
         data: 1
         type: dword
 
-
 # Disable system hibernation.
 - name: Disabling System Hibernation...
   block:

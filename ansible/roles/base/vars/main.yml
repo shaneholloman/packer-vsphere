@@ -4,7 +4,7 @@ module_name: sle-module-public-cloud
 module_version: 15.5
 architecture: x86_64
 
-base_task_name: "Update the operating system and install additional packages."
+base_task_name: Update the operating system and install additional packages.
 additional_packages:
 
   # OS family: VMware Photon OS
