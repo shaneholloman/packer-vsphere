@@ -72,7 +72,7 @@ plugins:
         variable_start_string: "${{"
         variable_end_string: "}}"
   - git-revision-date-localized:
-      enabled: !ENV [CI, false]
+      enabled: !ENV [CI, false]  # TODO not passing linting - may need actual values instead here?
       enable_creation_date: false
       exclude:
         - index.md

@@ -20,9 +20,6 @@
         name: "{{ additional_packages[ansible_os_family] }}"
         state: latest
 
-    # In an effort to pull versioning outta here and make the function idempotent
-    # see vars/main.yml for these parameters
-    # TODO: Not tested as no pro account available, please test and pull the comment ...
     - name: Set full module path
       ansible.builtin.set_fact:
         full_module_path: "{{ module_name }}/{{ module_version }}/{{ architecture }}"

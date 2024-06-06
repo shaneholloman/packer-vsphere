@@ -74,8 +74,6 @@
     mode: "0755"
 
 # Task to force setting guest operating system information for VMware Tools.
-# TODO I question the validity of this setting
-#   as users will usually want to have ubuntu or debian and version:
 - name: Setting guest operating system information for VMware Tools.
   ansible.builtin.blockinfile:
     path: /etc/vmware-tools/tools.conf

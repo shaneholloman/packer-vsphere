@@ -12,15 +12,15 @@
     - name: Updating the operating system.
       ansible.builtin.apt:
         name: "*"
-        state: latest # noqa package-latest
+        state: latest  # noqa package-latest
         update_cache: true
 
     - name: Installing additional packages.
       ansible.builtin.apt:
         name: "{{ additional_packages[ansible_os_family] }}"
-        state: latest # noqa package-latest
+        state: latest  # noqa package-latest
 
     - name: Installing cloud-init.
       ansible.builtin.apt:
         name: cloud-init
-        state: latest # noqa package-latest
+        state: latest  # noqa package-latest
